@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Motivación</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
+
+    #container {
+      text-align: center;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    #frase {
+      font-size: 32px;
+      max-width: 600px;
+      line-height: 1.4;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 20px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div id="container">
+  <div id="frase"></div>
+  <button onclick="nuevaFrase()">Otra frase</button>
+</div>
+
+<script>
+const frases = [
+  "No necesitas motivación, necesitas disciplina.",
+  "Hazlo aunque no tengas ganas.",
+  "Cada día cuenta.",
+  "El dolor es temporal, el orgullo es eterno.",
+  "Si fuera fácil, todos lo harían.",
+  "Haz lo que dijiste que harías.",
+  "Menos excusas, más acción.",
+  "Tu yo futuro te está mirando."
+];
+
+let ultimaFrase = -1;
+
+function nuevaFrase() {
+  let random;
+  do {
+    random = Math.floor(Math.random() * frases.length);
+  } while (random === ultimaFrase);
+
+  ultimaFrase = random;
+  document.getElementById("frase").innerText = frases[random];
+}
+
+nuevaFrase();
+
+// partículas fondo
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2,
+    d: Math.random() * 1
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "white";
+  ctx.globalAlpha = 0.6;
+
+  for (let i = 0; i < particles.length; i++) {
+    let p = particles[i];
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  update();
+}
+
+function update() {
+  for (let i = 0; i < particles.length; i++) {
+    let p = particles[i];
+    p.y += p.d;
+
+    if (p.y > canvas.height) {
+      p.y = 0;
+      p.x = Math.random() * canvas.width;
+    }
+  }
+}
+
+setInterval(draw, 33);
+</script>
+
+</body>
+</html>
