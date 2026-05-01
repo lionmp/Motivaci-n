@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Motivación diaria</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: Arial;
+      color: white;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+    #frase {
+      font-size: 28px;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div>
+  <div id="frase"></div>
+  <button onclick="nuevaFrase()">Otra frase</button>
+</div>
+
+<script>
+const frases = [
+  "No necesitas motivación, necesitas disciplina.",
+  "Hazlo aunque no tengas ganas.",
+  "Cada día cuenta.",
+  "El dolor es temporal, el orgullo es eterno.",
+  "Si fuera fácil, todos lo harían."
+];
+
+function nuevaFrase() {
+  const random = Math.floor(Math.random() * frases.length);
+  document.getElementById("frase").innerText = frases[random];
+}
+
+nuevaFrase();
+</script>
+
+</body>
+</html>
